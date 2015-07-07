@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class SlingshotScript : MonoBehaviour {
 
 	public GameObject prefabProjectile;
-	public float velocityMult = 4.0f;
-
+	public float velocityMult = 10.0f;
+	Text shotsFiredText;
+	public int shotsFired;
 
 	private GameObject launchPoint;
 	private bool aimingMode;
@@ -18,16 +20,24 @@ public class SlingshotScript : MonoBehaviour {
 		launchPoint = launchPointTrans.gameObject;
 		launchPoint.SetActive (false);
 		launchPos = launchPointTrans.position;
+		shotsFiredText = GameObject.FindGameObjectWithTag("Shots").GetComponent<Text>();
 	}
 
-	void OnMouseEnter() {
+//	void OnMouseEnter() {
 		//print ("Slingshot.MouseEnter");
-		launchPoint.SetActive (true);
-	}
+//		launchPoint.SetActive (true);
+//	}
 
+	
+	void OnMouseOver() {
+		launchPoint.SetActive(true);
+	}
+ 
 	void OnMouseExit() {
 		//print ("Slingshot.MouseExit");
-		launchPoint.SetActive (false);
+//		if(Input.GetMouseButton (0)) {
+//		} else
+			launchPoint.SetActive(false);
 	}
 
 	void OnMouseDown() {
@@ -64,9 +74,15 @@ public class SlingshotScript : MonoBehaviour {
 
 		if(Input.GetMouseButtonUp (0)) {
 			aimingMode = false;
+			// Switch on Gravity
 			projectile.GetComponent<Rigidbody>().isKinematic = false;
 
 			projectile.GetComponent<Rigidbody>().velocity = -mouseDelta * velocityMult;
+
+			FollowCam.S.poi = projectile;
+
+			shotsFired++;
+			shotsFiredText.text = shotsFired.ToString();
 		}
 	}
 }
