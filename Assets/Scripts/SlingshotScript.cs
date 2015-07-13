@@ -4,10 +4,13 @@ using System.Collections;
 
 public class SlingshotScript : MonoBehaviour {
 
-	public GameObject prefabProjectile;
+	public GameObject[] prefabProjectile = new GameObject[1];
 	public float velocityMult = 10.0f;
-	Text shotsFiredText;
-	public int shotsFired;
+	
+	public Animator shotsFiredAnimator;
+	private AudioSource ropeAudio;
+	public AudioClip dragClip;
+	public AudioClip shotClip;
 
 	private GameObject launchPoint;
 	private bool aimingMode;
@@ -20,7 +23,7 @@ public class SlingshotScript : MonoBehaviour {
 		launchPoint = launchPointTrans.gameObject;
 		launchPoint.SetActive (false);
 		launchPos = launchPointTrans.position;
-		shotsFiredText = GameObject.FindGameObjectWithTag("Shots").GetComponent<Text>();
+		ropeAudio = GetComponent<AudioSource>();
 	}
 
 //	void OnMouseEnter() {
@@ -34,10 +37,8 @@ public class SlingshotScript : MonoBehaviour {
 	}
  
 	void OnMouseExit() {
-		//print ("Slingshot.MouseExit");
-//		if(Input.GetMouseButton (0)) {
-//		} else
-			launchPoint.SetActive(false);
+		launchPoint.SetActive(false);
+
 	}
 
 	void OnMouseDown() {
@@ -45,8 +46,10 @@ public class SlingshotScript : MonoBehaviour {
 		aimingMode = true;
 
 		// Instantiate a projectile at launchPoint
-		projectile = Instantiate ( prefabProjectile ) as GameObject;
+		projectile = Instantiate ( prefabProjectile[Random.Range(0, prefabProjectile.Length)] ) as GameObject;
 		projectile.transform.position = launchPos;
+		ropeAudio.clip = dragClip;
+		ropeAudio.Play();
 
 		// Switch of physics during aiming mode
 		projectile.GetComponent<Rigidbody>().isKinematic = true;
@@ -81,8 +84,14 @@ public class SlingshotScript : MonoBehaviour {
 
 			FollowCam.S.poi = projectile;
 
-			shotsFired++;
-			shotsFiredText.text = shotsFired.ToString();
+			GameController.shotsFired++;
+
+			shotsFiredAnimator.SetTrigger("ShotFired");
+			if (ropeAudio.isPlaying) {
+				ropeAudio.Stop();
+			}
+			ropeAudio.clip = shotClip;
+			ropeAudio.Play();
 		}
 	}
 }

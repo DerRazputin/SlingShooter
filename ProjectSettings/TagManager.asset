@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shots
+  - Projectile
+  - Slingshot
+  - Goal
+  - Both
+  - Score
   layers:
   - Default
   - TransparentFX
