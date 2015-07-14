@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour {
 
 		bothTransform = slingshot.transform.position;
 		bothTransform.x += (castle.transform.position.x - slingshot.transform.position.x) * 0.5f;
-		bothTransform.y += (castle.transform.position.y - slingshot.transform.position.x) * 0.5f;
+		bothTransform.y += ((castle.transform.position.y - slingshot.transform.position.x) * 0.5f) * 6;
 		bothTransform.z = 0;
 		level = 0;
 		levelMax = castles.Length;
