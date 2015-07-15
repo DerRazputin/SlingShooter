@@ -81,7 +81,11 @@ public class GameController : MonoBehaviour {
 		// Check for level end
 	}
 
-
+	public void RestartGame() {
+		Application.LoadLevel (0);
+		score = 0;
+		shotsFired = 0;
+	}
 
 	public void SwitchView(string view) {
 

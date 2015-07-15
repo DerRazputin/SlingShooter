@@ -10,6 +10,9 @@ TagManager:
   - Goal
   - Both
   - Score
+  - Ground
+  - Food
+  - FoodSmall
   layers:
   - Default
   - TransparentFX

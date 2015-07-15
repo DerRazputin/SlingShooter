@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Tomato : MonoBehaviour {
 
 	public GameObject hitPrefab;
 	public GameObject hitDecal;
+	public float radius = 50.0F;
+	public float power = 100.0F;
 
 	
 	// Update is called once per frame
@@ -18,10 +20,15 @@ public class Tomato : MonoBehaviour {
 			Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
 			Vector3 pos = contact.point;
 			Instantiate(hitPrefab, pos, rot);
-			pos.z -= 0.5f;
-			rot = Quaternion.LookRotation(this.GetComponent<Rigidbody>().velocity);
-			rot.y += 90;
-			Instantiate(hitDecal, pos, rot);
+			Vector3 explosionPos = transform.position;
+			Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
+			foreach (Collider hit in colliders) {
+				Rigidbody rb = hit.GetComponent<Rigidbody>();
+				
+				if (rb != null)
+					rb.AddExplosionForce(power, explosionPos, radius, 3.0F);
+				
+			}
 			Destroy(gameObject);
 		}
 	}
