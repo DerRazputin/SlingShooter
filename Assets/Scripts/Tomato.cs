@@ -7,9 +7,11 @@ public class Tomato : MonoBehaviour {
 	public GameObject hitDecal;
 	public float radius = 50.0F;
 	public float power = 100.0F;
-
+	private Component Rend;
 	
-	// Update is called once per frame
+	void Start () {
+	}
+
 	void Update () {
 		this.transform.rotation = Quaternion.LookRotation(this.GetComponent<Rigidbody>().velocity);	
 	}
@@ -29,7 +31,24 @@ public class Tomato : MonoBehaviour {
 					rb.AddExplosionForce(power, explosionPos, radius, 3.0F);
 				
 			}
-			Destroy(gameObject);
+//			Destroy(gameObject);
+			StartCoroutine(DestroyAfterWait(1));
 		}
+	}
+	IEnumerator DestroyAfterWait(int wait) {
+//		gameObject.GetComponent<Rigidbody>().isKinematic = true;
+//		gameObject.GetComponent<CapsuleCollider>().isTrigger = true;
+		gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+		Renderer[] rs = GetComponentsInChildren<Renderer>();
+		foreach (Renderer r in rs) {
+			r.enabled = false;
+		}
+		Collider[] cs = GetComponentsInChildren<CapsuleCollider>();
+		foreach (Collider c in cs) {
+			c.enabled = false;
+		}
+		yield return new WaitForSeconds(wait);
+		Debug.Log("waited one second");
+		Destroy(gameObject);
 	}
 }

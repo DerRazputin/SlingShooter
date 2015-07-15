@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: da3524c6c5228f448b0ac3dca880e989
-timeCreated: 1436901339
+guid: 82e1d86e52fe8fa418bcbc1790c7ea36
+timeCreated: 1436950948
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -23,6 +23,7 @@ ModelImporter:
     100030: r_UprLid2
     100032: rEye
     100034: root
+    100036: ground
     400000: //RootNode
     400002: Ground1
     400004: l_LwrLid1
@@ -41,6 +42,7 @@ ModelImporter:
     400030: r_UprLid2
     400032: rEye
     400034: root
+    400036: ground
     2300000: lEye
     2300002: rEye
     3300000: lEye
@@ -48,10 +50,11 @@ ModelImporter:
     4300000: lEye
     4300002: rEye
     4300004: Ground1
+    4300006: ground
     7400000: Take 001
     9500000: //RootNode
-    11100000: //RootNode
     13700000: Ground1
+    13700002: ground
   materials:
     importMaterials: 1
     materialName: 0
@@ -77,7 +80,7 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 1
       lastFrame: 48
-      wrapMode: 2
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
@@ -171,7 +174,7 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 2
   additionalBone: 0
   userData: 
   assetBundleName: 

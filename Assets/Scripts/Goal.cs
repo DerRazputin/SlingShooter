@@ -4,7 +4,6 @@ using System.Collections;
 public class Goal : MonoBehaviour {
 
 	// Static field accessible from anywhere
-	public GameObject ground;
 	private AudioSource cheerSound;
 	public AudioSource scoreSound;
 	public Color color;
@@ -20,13 +19,15 @@ public class Goal : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		// Check if the object is a projectile
 		if (other.tag == "Food") {
-			ScoreGoal();
+			ScoreGoal(100);
 //		cheerSound.Play();
+		} else if (other.tag == "FoodSmall") {
+			ScoreGoal(1);
 		}
 	}
 
-	void ScoreGoal() {
-		GameController.score += 100;
+	void ScoreGoal(int addScore) {
+		GameController.score += addScore;
 		scoreSound.Play ();
 	}
 }

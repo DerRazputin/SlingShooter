@@ -1,32 +1,17 @@
 fileFormatVersion: 2
-guid: 16201227ffe40504b927f977d504ec14
-timeCreated: 1436890234
+guid: bc9770706ed159d4d8eb9b51164e623b
+timeCreated: 1436972585
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
-    100002: ikHandle1
-    100004: joint1
-    100006: joint2
-    100008: joint3
-    100010: joint4
-    100012: joint5
-    100014: locator1
-    100016: pSphere3
+    100002: default
     400000: //RootNode
-    400002: ikHandle1
-    400004: joint1
-    400006: joint2
-    400008: joint3
-    400010: joint4
-    400012: joint5
-    400014: locator1
-    400016: pSphere3
-    2300000: pSphere3
-    3300000: pSphere3
-    4300000: pSphere3
-    9500000: //RootNode
+    400002: default
+    2300000: default
+    3300000: default
+    4300000: default
   materials:
     importMaterials: 1
     materialName: 0
@@ -84,7 +69,7 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

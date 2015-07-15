@@ -207,6 +207,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPrefab: {fileID: 109986, guid: bc1a591e16f18d94eb0b52c60143d69b, type: 2}
   hitDecal: {fileID: 123510, guid: 8dd0f90213427964183db7e8ac292432, type: 2}
+  radius: 5
+  power: 500
 --- !u!135 &13575782
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -281,6 +283,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Mass
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: radius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: power
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -44,15 +44,12 @@ public class FollowCam : MonoBehaviour {
 
 				//check if it is resting (sleeping)
 				if(poi.GetComponent<Rigidbody>().IsSleeping()){
-
 					// se tthe poi to default (null)
 					poi = null;
 					return;
 				}
 			}
 		}
-
-
 
 		destination.x = Mathf.Max (minXY.x, destination.x);
 		destination.y = Mathf.Max (minXY.y, destination.y);
@@ -64,5 +61,10 @@ public class FollowCam : MonoBehaviour {
 		transform.position = destination;
 
 		this.GetComponent<Camera>().orthographicSize = 10 + destination.y;
+	}
+
+	IEnumerator waitOneSecond() {
+		yield return new WaitForSeconds(1);
+		Debug.Log("go fuck yourself!");
 	}
 }
