@@ -62,9 +62,4 @@ public class FollowCam : MonoBehaviour {
 
 		this.GetComponent<Camera>().orthographicSize = 10 + destination.y;
 	}
-
-	IEnumerator waitOneSecond() {
-		yield return new WaitForSeconds(1);
-		Debug.Log("go fuck yourself!");
-	}
 }

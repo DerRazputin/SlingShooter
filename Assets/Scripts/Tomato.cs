@@ -48,7 +48,6 @@ public class Tomato : MonoBehaviour {
 			c.enabled = false;
 		}
 		yield return new WaitForSeconds(wait);
-		Debug.Log("waited one second");
 		Destroy(gameObject);
 	}
 }

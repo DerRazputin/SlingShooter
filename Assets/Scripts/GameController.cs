@@ -7,7 +7,6 @@ enum GameState {
 	idle,
 	playing,
 	levelEnd
-
 }
 
 public class GameController : MonoBehaviour {
@@ -16,7 +15,6 @@ public class GameController : MonoBehaviour {
 
 	// Public inspector fields
 	public GameObject[] castles;
-	public Vector3 castlePos;
 	public GameObject castle;
 	public GameObject both;
 	public GameObject slingshot;
@@ -26,7 +24,6 @@ public class GameController : MonoBehaviour {
 	public static int score;
 	public static Text shotsFiredText;
 	public static int shotsFired;
-	public float heightOffset;
 	private float gameRotation;
 	public float easing;
 	public float gravityMultiplier;
@@ -39,18 +36,13 @@ public class GameController : MonoBehaviour {
 	private int level;
 	private int levelMax;
 	private int shotsTaken;
-	private string showing = "Slingshot";
+	private Vector3 castlePos;
 	private GameState state = GameState.idle;
 	private Vector3 bothTransform;
 
 
 	void Awake() {
 		S = this;
-		heightOffset = 1;
-		bothTransform = slingshot.transform.position;
-		bothTransform.x += (castle.transform.position.x - slingshot.transform.position.x) * 0.5f;
-		bothTransform.y = ((castle.transform.position.y - slingshot.transform.position.y) * 0.5f) * -heightOffset;
-		bothTransform.z = 0;
 		level = 0;
 		levelMax = castles.Length;
 		scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
@@ -61,10 +53,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	void StartLevel() {
-		both.transform.position = bothTransform;
-
-		// if there is a castle, destroy it
-
 		// Dewstroy all remaining projectiles
 
 		// Instantiate a new castle
@@ -83,22 +71,20 @@ public class GameController : MonoBehaviour {
 		// Update our GUI texts
 		scoreText.text = "Score: " + score.ToString();
 		shotsFiredText.text = shotsFired.ToString();
-		bothTransform.y = ((castle.transform.position.y - slingshot.transform.position.y) * 0.5f) * -heightOffset;
-		both.transform.position = bothTransform;
 	}
 
 	void FixedUpdate() {
-		if (Input.GetKeyDown(KeyCode.RightArrow)) {
-			if (gameRotation < 0.5f) {
+		if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
+			if (gameRotation < 0.4f) {
 				gameRotation += 0.2f;
 			}
 		}
-		if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-			if (gameRotation > -0.5f) {
+		if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
+			if (gameRotation > -0.4f) {
 				gameRotation -= 0.2f;
 			}
 		}
-		if (Input.GetKey(KeyCode.DownArrow)) {
+		if (Input.GetAxis("Vertical") < 0) {
 			gameRotation = 0;
 		}
 		RotateGame(gameRotation, easing);

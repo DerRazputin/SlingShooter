@@ -5,8 +5,9 @@ public class Goal : MonoBehaviour {
 
 	// Static field accessible from anywhere
 	private AudioSource cheerSound;
-	public AudioSource scoreSound;
+	AudioSource scoreSound;
 	public Color color;
+	public Animator scoreAnimator;
 
 	void Start () {
 		cheerSound = GetComponent<AudioSource>();
@@ -20,7 +21,9 @@ public class Goal : MonoBehaviour {
 		// Check if the object is a projectile
 		if (other.tag == "Food") {
 			ScoreGoal(100);
-//		cheerSound.Play();
+			if (!cheerSound.isPlaying) {
+				cheerSound.Play();
+			}
 		} else if (other.tag == "FoodSmall") {
 			ScoreGoal(1);
 		}
@@ -28,6 +31,7 @@ public class Goal : MonoBehaviour {
 
 	void ScoreGoal(int addScore) {
 		GameController.score += addScore;
+		scoreAnimator.SetTrigger("scored");
 		scoreSound.Play ();
 	}
 }
