@@ -24,46 +24,38 @@ public class GameController : MonoBehaviour {
 	public static int score;
 	public static Text shotsFiredText;
 	public static int shotsFired;
-	private float gameRotation;
 	public float easing;
 	public float gravityMultiplier;
-
-//	public Text gtLevel;
-//	public Text gtShots;
-
+	public GameObject Tutorial;
+	public static bool TutorialSeen = false;
+	
 
 	// Internal fields
-	private int level;
-	private int levelMax;
 	private int shotsTaken;
 	private Vector3 castlePos;
 	private GameState state = GameState.idle;
 	private Vector3 bothTransform;
+	private float gameRotation;
 
 
 	void Awake() {
 		S = this;
-		level = 0;
-		levelMax = castles.Length;
-		scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
-		shotsFiredText = GameObject.FindGameObjectWithTag("Shots").GetComponent<Text>();
-		gameRotation = 0;
-		RotateGame(gameRotation, easing);
 		StartLevel();
 	}
 
 	void StartLevel() {
-		// Dewstroy all remaining projectiles
-
-		// Instantiate a new castle
-
-		// Switch the view to "Both"
-
-		// Clear all projectile trails
-
-
-
-
+		slingshot.GetComponent<SlingshotScript>().enabled = false;
+		scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
+		shotsFiredText = GameObject.FindGameObjectWithTag("Shots").GetComponent<Text>();
+		gameRotation = 0;
+		RotateGame(gameRotation, easing);
+		if (TutorialSeen == true) {
+			Destroy(Tutorial);
+			slingshot.GetComponent<SlingshotScript>().enabled = true;
+			GameObject.Find("LaunchPoint").SetActive(true);
+		} else {
+			Tutorial.SetActive(true);
+		}
 	}
 	
 
@@ -71,9 +63,6 @@ public class GameController : MonoBehaviour {
 		// Update our GUI texts
 		scoreText.text = "Score: " + score.ToString();
 		shotsFiredText.text = shotsFired.ToString();
-	}
-
-	void FixedUpdate() {
 		if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
 			if (gameRotation < 0.4f) {
 				gameRotation += 0.2f;
@@ -87,6 +76,9 @@ public class GameController : MonoBehaviour {
 		if (Input.GetAxis("Vertical") < 0) {
 			gameRotation = 0;
 		}
+	}
+
+	void FixedUpdate() {
 		RotateGame(gameRotation, easing);
 	}
 
@@ -107,11 +99,23 @@ public class GameController : MonoBehaviour {
 		score = 0;
 		shotsFired = 0;
 	}
+	
+	public void CloseTutorial () {
+		Tutorial.GetComponent<Animator>().SetTrigger("CloseTutorial");
+		Destroy(Tutorial.transform.Find("ClickToContinue").gameObject);
+		TutorialSeen = true;
+		slingshot.GetComponent<SlingshotScript>().enabled = true;
+		StartCoroutine("CloseAndDestroyTutorial");
+	}
+
+	// Destroy tutorial actor after delay
+	public IEnumerator CloseAndDestroyTutorial () {
+		yield return new WaitForSeconds(1);
+		Destroy(Tutorial);
+	}
 
 	public void SwitchView(string view) {
-
 		// Switch overall possibilities "Castle", "Both", "SlingShot"
-
 		switch(view) {
 		case "Castle":
 			Debug.Log("Castle");

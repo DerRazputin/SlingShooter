@@ -26,14 +26,10 @@ public class SlingshotScript : MonoBehaviour {
 		ropeAudio = GetComponent<AudioSource>();
 	}
 
-//	void OnMouseEnter() {
-		//print ("Slingshot.MouseEnter");
-//		launchPoint.SetActive (true);
-//	}
-
-	
 	void OnMouseOver() {
-		launchPoint.SetActive(true);
+		if (GameController.TutorialSeen == true && Pause.pauseGame == false) {
+			launchPoint.SetActive(true);
+		}
 	}
  
 	void OnMouseExit() {
@@ -42,17 +38,19 @@ public class SlingshotScript : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-		//Set the game to aiming mode
-		aimingMode = true;
+		if (GameController.TutorialSeen == true && Pause.pauseGame == false) {
+			//Set the game to aiming mode
+			aimingMode = true;
+				
+			// Instantiate a projectile at launchPoint
+			projectile = Instantiate ( prefabProjectile[Random.Range(0, prefabProjectile.Length)] ) as GameObject;
+			projectile.transform.position = launchPos;
+			ropeAudio.clip = dragClip;
+			ropeAudio.Play();
 
-		// Instantiate a projectile at launchPoint
-		projectile = Instantiate ( prefabProjectile[Random.Range(0, prefabProjectile.Length)] ) as GameObject;
-		projectile.transform.position = launchPos;
-		ropeAudio.clip = dragClip;
-		ropeAudio.Play();
-
-		// Switch of physics during aiming mode
-		projectile.GetComponent<Rigidbody>().isKinematic = true;
+			// Switch of physics during aiming mode
+			projectile.GetComponent<Rigidbody>().isKinematic = true;
+		}
 	}
 
 	// Update is called once per frame

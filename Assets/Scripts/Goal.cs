@@ -8,8 +8,11 @@ public class Goal : MonoBehaviour {
 	AudioSource scoreSound;
 	public Color color;
 	public Animator scoreAnimator;
+	public GameObject particleLocation;
+	public GameObject dropParticlesPrefab;
 
 	void Start () {
+		particleLocation = GameObject.Find("FoodDropsLocation");
 		cheerSound = GetComponent<AudioSource>();
 		scoreSound = GameObject.FindGameObjectWithTag("Score").GetComponent<AudioSource>();
 	}
@@ -24,9 +27,11 @@ public class Goal : MonoBehaviour {
 			if (!cheerSound.isPlaying) {
 				cheerSound.Play();
 			}
+			Instantiate(dropParticlesPrefab, particleLocation.transform.position, particleLocation.transform.rotation);
 		} else if (other.tag == "FoodSmall") {
 			ScoreGoal(1);
 		}
+		Destroy(other.gameObject);
 	}
 
 	void ScoreGoal(int addScore) {
