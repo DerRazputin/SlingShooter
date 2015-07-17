@@ -9,7 +9,7 @@ public class Pause : MonoBehaviour {
 	public GameObject pause;
 
 	// Use this for initialization
-	void Start () {
+	void Awake() {
 		S = this;
 	}
 	

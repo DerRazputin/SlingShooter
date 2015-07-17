@@ -40,6 +40,9 @@ public class GameController : MonoBehaviour {
 
 	void Awake() {
 		S = this;
+	}
+
+	void Start() {
 		StartLevel();
 	}
 
