@@ -2,7 +2,6 @@
 # Unity generated #
 # =============== #
 Temp/
-Obj/
 UnityGenerated/
 Library/
 Assets/AssetStoreTools*
@@ -10,7 +9,6 @@ Assets/AssetStoreTools*
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
-ExportedObj/
 *.svd
 *.userprefs
 *.csproj
